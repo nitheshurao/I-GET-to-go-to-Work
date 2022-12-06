@@ -8,7 +8,7 @@ export const reducer = (state, action) => {
         return { ...state, people: newIt, showModel: true, modelcontent: "hii----", remove: "green" }
     }
     if (action.type == "NO_Value") {
-        return { ...state, showModel: true, modelcontent: "Please enter value", remove: "yellow" }
+        return { ...state, showModel: true, modelcontent: "Please enter value", remove: "yellowt" }
     }
     if (action.type == "CLOSE_MODEL") {
         return { ...state, showModel: false }
