@@ -36,6 +36,7 @@ import {
     EDIT_JOB_SUCCESS,
     SHOW_STATS_BEGIN,
     SHOW_STATS_SUCCESS,
+    CLEAR_FILTERS,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -312,7 +313,17 @@ const AppProvider = ({ children }) => {
         clearAlert()
     }
     const getJobs = async () => {
-        let url = '/jobs'
+        const { search, searchStatus, searchType, sort } = state
+        let url = `jobs?jobType=${searchType}&sort=${sort}&status=${searchStatus}`
+        // if (search) {
+        //     url = url + `search=${search}`
+        // }
+
+        // let url = `/jobs?page=${page}&status=${searchStatus}&jobType=${searchType}&sort=${sort}`
+        if (search) {
+            url = url + `&search=${search}`
+        }
+        // .......
 
         dispatch({ type: GET_JOB_BEGIN })
         try {
@@ -409,6 +420,11 @@ const AppProvider = ({ children }) => {
         clearAlert()
     }
 
+    const clearFilers = () => {
+        dispatch({ type: CLEAR_FILTERS })
+
+    }
+
     return (
         <AppContext.Provider
             value={{
@@ -430,6 +446,8 @@ const AppProvider = ({ children }) => {
                 deleteJob,
 
                 showStats,
+                clearFilers,
+
             }}
         >
             {children}
